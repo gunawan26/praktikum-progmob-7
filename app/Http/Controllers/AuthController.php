@@ -1,9 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\User;
+use Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
+
+use Auth;
 class AuthController extends Controller
 {
     /**
@@ -13,7 +17,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login','register']]);
     }
 
     /**
@@ -79,4 +83,49 @@ class AuthController extends Controller
             'expires_in' => auth()->factory()->getTTL() * 60
         ]);
     }
+
+    //Registering the User
+
+    public function register(Request $request){
+
+        try{
+            $this->validator($request->all())->validate();
+            // if ($this->validator->fails()) {    
+            //     return response()->json($validator->messages(), 400);
+            // }
+            $test = $this->create($request->all());
+            return response()->json(['success'=>$success],200);
+        }catch(Illuminate\Database\QueryException $e){
+            return response()->json([
+    			'status'	=> false,
+    			'msg'		=> 'Error inserting data.'
+    		], 400);
+        }
+    }
+
+
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => ['required', 'string', 'max:191'],
+            'email' => ['required', 'string', 'email', 'max:191', 'unique:users'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+ 
+        ]);
+    }
+
+
+    protected function create(array $data)
+    {
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
+    }
+
+
+
+
+
 }
