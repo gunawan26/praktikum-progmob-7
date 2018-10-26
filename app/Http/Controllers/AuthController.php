@@ -94,7 +94,10 @@ class AuthController extends Controller
             //     return response()->json($validator->messages(), 400);
             // }
             $test = $this->create($request->all());
-            return response()->json(['success'=>$success],200);
+            return response()->json([
+    			'status'	=> true,
+    			'msg'		=> 'berhasil'
+    		], 200);
         }catch(Illuminate\Database\QueryException $e){
             return response()->json([
     			'status'	=> false,
