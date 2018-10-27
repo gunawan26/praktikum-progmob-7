@@ -78,6 +78,7 @@ class AuthController extends Controller
     protected function respondWithToken($token)
     {
         return response()->json([
+            'status'    => true,
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60
@@ -93,11 +94,14 @@ class AuthController extends Controller
             // if ($this->validator->fails()) {    
             //     return response()->json($validator->messages(), 400);
             // }
-            $test = $this->create($request->all());
+            $usr = $this->create($request->all());
             return response()->json([
-    			'status'	=> true,
-    			'msg'		=> 'berhasil'
-    		], 200);
+                'status'    =>true,
+                'msg'       =>'registered',
+                'email'     =>$usr->email,
+                'name'      =>$usr->name
+
+            ],200);
         }catch(Illuminate\Database\QueryException $e){
             return response()->json([
     			'status'	=> false,
@@ -113,7 +117,8 @@ class AuthController extends Controller
             'name' => ['required', 'string', 'max:191'],
             'email' => ['required', 'string', 'email', 'max:191', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
- 
+            'jenis_kelamin' =>['in:laki,perempuan'],
+            'tanggal_lahir'=>['date'],
         ]);
     }
 
@@ -124,6 +129,8 @@ class AuthController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'tanggal_lahir' => $data['tanggal_lahir'],
+            'jenis_kelamin' => $data['jenis_kelamin'],
         ]);
     }
 
