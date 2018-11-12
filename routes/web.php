@@ -29,12 +29,16 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/register','AdminController@registerAdmin')->name('admin.registerpage');
     Route::post('/login','AdminController@login')->name('admin.login');
     Route::post('/register','AdminController@register')->name('admin.register');
-    Route::group(['prefix'=> 'dashboard'],['middleware' => ['auth:web_admins']], function () {
-        Route::get('/','AdminController@HomeDashboard')->name('admin.dashboard');
-        Route::get('/daerah','DashboardController@Daerah')->name('admin.dashboard.daerah');
-        Route::get('/bioskop','DashboardController@Bioskop')->name('admin.dashboard.bioskop');
-        Route::post('/tambah/provinsi','DashboardController@AddProvinsi')->name('admin.dashboard.daerah.provinsi');
-        Route::post('/tambah/kabupaten','DashboardController@AddKabupaten')->name('admin.dashboard.daerah.kabupaten');
+
+    Route::group(['prefix' => 'dashboard'], function () {
+        Route::group(['middleware' => ['auth:web_admins']], function () {
+            Route::get('/','AdminController@HomeDashboard')->name('admin.dashboard');
+            Route::get('/daerah','DashboardController@Daerah')->name('admin.dashboard.daerah');
+            Route::get('/bioskop','DashboardController@Bioskop')->name('admin.dashboard.bioskop');
+            Route::post('/tambah/provinsi','DashboardController@AddProvinsi')->name('admin.dashboard.daerah.provinsi');
+            Route::post('/tambah/kabupaten','DashboardController@AddKabupaten')->name('admin.dashboard.daerah.kabupaten');
+        });
     });
+
 
 });
