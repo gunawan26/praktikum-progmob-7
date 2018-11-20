@@ -24,7 +24,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::group(['prefix' => 'admin'], function () {
-
+    Route::get('/','AdminController@loginPage')->name('admin.log');
     Route::get('/login','AdminController@loginPage')->name('admin.loginpage');
     Route::get('/register','AdminController@registerAdmin')->name('admin.registerpage');
     Route::post('/login','AdminController@login')->name('admin.login');

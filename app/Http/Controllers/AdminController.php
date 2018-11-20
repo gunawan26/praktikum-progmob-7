@@ -24,6 +24,7 @@ class AdminController extends Controller
     }
 
 
+
     public function registerAdmin()
     {
         //
@@ -59,6 +60,9 @@ class AdminController extends Controller
     }
 
     public function loginPage(){
+        if ($this->guard()->check()){
+            return redirect()->route('admin.dashboard');
+        }
         return view('auth.adminlogin');
     }
 
