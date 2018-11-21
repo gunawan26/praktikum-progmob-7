@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddIdTransaksiToDetailTransaksisTable extends Migration
+class AddTglmulaiTglselesaiToFilmsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class AddIdTransaksiToDetailTransaksisTable extends Migration
      */
     public function up()
     {
-        Schema::table('detail_transaksis', function (Blueprint $table) {
+        Schema::table('films', function (Blueprint $table) {
             //
-            $table->unsignedBigInteger("id_transaksi");
-
-            $table->foreign('id_transaksi')->references('id')->on('transaksis');
+            $table->date('tgl_mulai');
+            $table->date('tanggal_selesai');
         });
     }
 
@@ -28,9 +27,9 @@ class AddIdTransaksiToDetailTransaksisTable extends Migration
      */
     public function down()
     {
-        Schema::table('detail_transaksis', function (Blueprint $table) {
+        Schema::table('films', function (Blueprint $table) {
             //
-            Schema::dropIfExists('detail_transaksis');
+            Schema::dropIfExists('films');
         });
     }
 }

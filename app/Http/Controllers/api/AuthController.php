@@ -92,7 +92,7 @@ class AuthController extends Controller
 
         try{
             $this->validator($request->all())->validate();
-            // if ($this->validator->fails()) {    
+            // if ($this->validator->fails()) {
             //     return response()->json($validator->messages(), 400);
             // }
             $usr = $this->create($request->all());
