@@ -27,11 +27,18 @@ class AuthController extends Controller
      */
     public function login()
     {
+
         $credentials = request(['email', 'password']);
 
         if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['status'=> false,
-                                    'error' => 'Unauthorized'], 401);
+
+            return response()->json([
+                'status'        => false,
+                'msg'           => 'gagal login',
+                'access_token'  => null,
+                'error'         => 'password atau username salah',
+            ],401);
+
         }
 
         return $this->respondWithToken($token);
@@ -55,8 +62,8 @@ class AuthController extends Controller
     public function logout()
     {
         auth()->logout();
+         return response()->json(['message' => 'Successfully logged out']);
 
-        return response()->json(['message' => 'Successfully logged out']);
     }
 
     /**
@@ -78,49 +85,56 @@ class AuthController extends Controller
      */
     protected function respondWithToken($token)
     {
+
         return response()->json([
-            'status'    => true,
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
-        ]);
+            'status'        => true,
+            'msg'           => 'berhasil login',
+            'access_token'  => $token,
+            'error'         => null,
+        ],200);
+
+
+         return $res;
+
+
     }
 
     //Registering the User
 
     public function register(Request $request){
-
-        try{
-            $this->validator($request->all())->validate();
-            // if ($this->validator->fails()) {
-            //     return response()->json($validator->messages(), 400);
-            // }
-            $usr = $this->create($request->all());
-            return response()->json([
-                'status'    =>true,
-                'msg'       =>'registered',
-                'email'     =>$usr->email,
-                'name'      =>$usr->name
-
-            ],200);
-        }catch(Illuminate\Database\QueryException $e){
-            return response()->json([
-    			'status'	=> false,
-    			'msg'		=> 'Error inserting data.'
-    		], 400);
-        }
-    }
-
-
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
+        $validator = Validator::make($request->all(),[
             'name' => ['required', 'string', 'max:191'],
             'email' => ['required', 'string', 'email', 'max:191', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
-            'jenis_kelamin' =>['in:laki,perempuan'],
-            'tanggal_lahir'=>['date'],
+            'tanggal_lahir' => ['required'],
         ]);
+
+        if($validator->fails()){
+            return response()->json([
+                'status'        => false,
+                'msg'           => 'input salah',
+                'access_token'  => null,
+                'error'         => $validator->messages(),
+            ],400);
+        }
+
+
+        try{
+            $usr = $this->create($request->all());
+            $login_respon = $this->login();
+
+            return $login_respon->original;
+        }catch(Illuminate\Database\QueryException $e){
+
+            return response()->json([
+                'status'        => false,
+                'msg'           => 'error insert data',
+                'access_token'  => null,
+                'error'         =>'Error !!!',
+            ],400);
+        }
+
+
     }
 
 
@@ -131,12 +145,8 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'tanggal_lahir' => $data['tanggal_lahir'],
-            'jenis_kelamin' => $data['jenis_kelamin'],
+
         ]);
     }
-
-
-
-
 
 }
