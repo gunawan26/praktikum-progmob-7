@@ -2,100 +2,48 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-4 col-md-5">
-            <div class="card card-user">
-                <div class="image">
-                    <img src="assets/img/background.jpg" alt="..." />
-                </div>
-                <div class="content">
-                    <div class="author">
-                        <img class="avatar border-white" src="assets/img/faces/face-2.jpg" alt="..." />
-                        <h4 class="title">Chet Faker<br />
-                            <a href="#"><small>@chetfaker</small></a>
-                        </h4>
-                    </div>
-                    <p class="description text-center">
-                        "I like the way you work it <br>
-                        No diggity <br>
-                        I wanna bag it up"
-                    </p>
-                </div>
-                <hr>
-                <div class="text-center">
-                    <div class="row">
-                        <div class="col-md-3 col-md-offset-1">
-                            <h5>12<br /><small>Files</small></h5>
-                        </div>
-                        <div class="col-md-4">
-                            <h5>2GB<br /><small>Used</small></h5>
-                        </div>
-                        <div class="col-md-3">
-                            <h5>24,6$<br /><small>Spent</small></h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+	<a href="{{route("admin.dashboard.bioskop.createbioskop")}}" class="btn btn-success">Tambah Bioskop</a>
+    <div class="card">
+    <div class="card-body">
+        <div class="table-responsive m-t-40">
+            <table id="myTable" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nama Bioskop</th>
+                        <th scope="col">Alamat</th>
+                        <th scope="col">Harga</th>
+                        <th scope="col">Create At</th>
+                        <th scope="col">Update At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($bioskops as $bioskops)
+                    <tr>
+                        <td>{{$bioskops->id}}</td>
+                        <td>{{$bioskops->nama_bioskop}}</td>
+                        <td>{{$bioskops->alamat}}</td>
+                        <td>{{$bioskops->harga}}</td>
+                        <td>{{$bioskops->created_at}}</td>
+                        <td>{{$bioskops->updated_at}}</td>
+                        <td>
+                            <a href="{{route("admin.dashboard.bioskop.editbioskop",$bioskops->id)}}" class="btn btn-primary">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <a href="{{route("admin.dashboard.seatplan")}}" class="btn btn-success">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                            <form action="{{route("admin.dashboard.bioskop.destroybioskop",$bioskops->id)}}" method="POST">
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
-        <div class="col-lg-8 col-md-7">
-            <div class="card">
-                <div class="header">
-                    <h4 class="title">Tambah Provinsi</h4>
-                </div>
-                <div class="content">
-                    <form action="">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <label>Nama Provinsi</label>
-                                    <input type="text" class="form-control border-input" placeholder="Bali" value="">
-                                </div>
-                            </div>
-
-                        </div>
-                        <button type="submit" class="btn btn-info btn-fill btn-wd">Tambah Provinsi</button>
-                    </form>
-
-
-                    <div class="clearfix"></div>
-
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-8 col-md-7">
-            <div class="card">
-                <div class="header">
-                    <h4 class="title">Tambah Kabupaten</h4>
-                </div>
-                <div class="content">
-                    <form action="">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <label>Nama Provinsi</label>
-                                    <input type="text" class="form-control border-input" placeholder="Bali" value="">
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <label>Nama Kabupaten/Kota</label>
-                                    <input type="text" class="form-control border-input" placeholder="Denpasar" value="">
-                                </div>
-                            </div>
-
-                        </div>
-                        <button type="submit" class="btn btn-info btn-fill btn-wd">Tambah Kabupaten</button>
-                    </form>
-
-
-                    <div class="clearfix"></div>
-
-                </div>
-            </div>
-        </div>
-
-
     </div>
 </div>
 @endsection

@@ -35,6 +35,12 @@ Route::group(['prefix' => 'admin'], function () {
             Route::get('/','AdminController@HomeDashboard')->name('admin.dashboard');
             Route::get('/daerah','DashboardController@Daerah')->name('admin.dashboard.daerah');
             Route::get('/bioskop','DashboardController@Bioskop')->name('admin.dashboard.bioskop');
+			Route::get('/seatplan','DashboardController@Seatplan')->name('admin.dashboard.seatplan');
+			Route::get('/addbioskop','DashboardController@Createbioskop')->name('admin.dashboard.bioskop.createbioskop');
+			Route::get('/editbioskop/{$bioskops->id}','DashboardController@Editbioskop')->name('admin.dashboard.bioskop.editbioskop');
+			Route::get('/bioskop/{$bioskops->id}','DashboardController@Destroybioskop')->name('admin.dashboard.bioskop.destroybioskop');
+			Route::post('/editbioskop','DashboardController@Updatebioskop')->name('admin.dashboard.bioskop.updatebioskop');
+			Route::post('/addbioskop','DashboardController@Addbioskop')->name('admin.dashboard.bioskop.addbioskop');
             Route::post('/tambah/provinsi','DashboardController@AddProvinsi')->name('admin.dashboard.daerah.provinsi');
             Route::post('/tambah/kabupaten','DashboardController@AddKabupaten')->name('admin.dashboard.daerah.kabupaten');
         });

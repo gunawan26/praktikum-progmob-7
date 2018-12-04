@@ -11,6 +11,24 @@
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
+	<style type="text/css">
+
+	      .seat {
+            height: 20px;
+            width: 20px;
+            border: 1px solid gray;
+           cursor:pointer;
+           background-color:white;
+        }
+        .walk{
+            padding-left:20px;
+        }
+        #driver {
+            background-color:gray;          
+            height: 20px;
+            border-radius: 50%;
+        }
+	</style>
 
 
     <!-- Bootstrap core CSS     -->
@@ -31,7 +49,6 @@
     <!--  CSS for Demo Purpose, don't include it in your project     -->
     {{--
     <link href="assets/css/demo.css" rel="stylesheet" /> --}}
-
 
     <!--  Fonts and icons     -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
@@ -62,7 +79,7 @@
 
                 <ul class="nav">
                     <li class="active">
-                        <a href="dashboard.html">
+                        <a href="{{route("admin.dashboard")}}">
                             <i class="ti-panel"></i>
                             <p>Dashboard</p>
                         </a>
