@@ -20,6 +20,7 @@ Route::group([
 
     Route::get('sedang-tayang','api\HomeController@filmSedangTayang');
     Route::get('akan-tayang','api\HomeController@filmAkanTayang');
+    Route::get('list-bioskop/{id_film}','api\JadwalController@showListBioskop');
     Route::post('add-wishlist','api\HomeController@addWishList');
     Route::delete('remove-wishlist/{id}','api\HomeController@deleteWishList');
 });

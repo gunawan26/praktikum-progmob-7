@@ -77,7 +77,7 @@ class AdminController extends Controller
         $this->validator($request->all())->validate();
         $pemilik = $this->create($request->all());
         $this->guard()->login($pemilik);
-        return redirect($this->redirectpath);
+        return redirect($this->redirectTo);
 
 
 
