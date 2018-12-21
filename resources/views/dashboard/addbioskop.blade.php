@@ -8,7 +8,7 @@
                 @csrf
                 <div class="form-group">
                     <label>Id</label>
-                    <input id="id" class="form-control" type="text" name="id" placeholder="id" required autofocus>
+                    <input id="id" class="form-control" type="text" name="id" placeholder="id_bioskops" required autofocus>
                 </div>
                 <div class="form-group">
                     <label>nama bioskop</label>

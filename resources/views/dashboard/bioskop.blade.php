@@ -20,20 +20,17 @@
                 <tbody>
                     @foreach($bioskops as $bioskops)
                     <tr>
-                        <td>{{$bioskops->id}}</td>
+                        <td>{{$bioskops->id_bioskops}}</td>
                         <td>{{$bioskops->nama_bioskop}}</td>
                         <td>{{$bioskops->alamat}}</td>
                         <td>{{$bioskops->harga}}</td>
                         <td>{{$bioskops->created_at}}</td>
                         <td>{{$bioskops->updated_at}}</td>
                         <td>
-                            <a href="{{route("admin.dashboard.bioskop.editbioskop",$bioskops->id)}}" class="btn btn-primary">
+                            <a href="{{route("admin.dashboard.bioskop.editbioskop",$bioskops->id_bioskops)}}" class="btn btn-primary">
                                 <i class="fa fa-pencil"></i>
                             </a>
-                            <a href="{{route("admin.dashboard.seatplan")}}" class="btn btn-success">
-                                <i class="fa fa-eye"></i>
-                            </a>
-                            <form action="{{route("admin.dashboard.bioskop.destroybioskop",$bioskops->id)}}" method="POST">
+                            <form action="{{route("admin.dashboard.bioskop.destroybioskop",$bioskops->id_bioskops)}}" method="POST">
                                 <button type="submit" class="btn btn-danger">
                                     <i class="fa fa-trash"></i>
                                 </button>

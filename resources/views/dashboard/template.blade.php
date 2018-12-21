@@ -85,14 +85,14 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{route("admin.dashboard.bioskop")}}">
+                        <a href="{{route("admin.dashboard.bioskophome")}}">
                             <i class="ti-user"></i>
                             <p>Bioskop</p>
                         </a>
                     </li>
-                    <li>
-                        <a href="table.html">
-                            <i class="ti-view-list-alt"></i>
+					<li>
+                        <a href="{{route("admin.dashboard.filmhome")}}">
+                            <i class="ti-user"></i>
                             <p>Film</p>
                         </a>
                     </li>
