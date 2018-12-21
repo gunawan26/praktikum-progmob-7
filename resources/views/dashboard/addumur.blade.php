@@ -8,7 +8,7 @@
                 @csrf
                 <div class="form-group">
                     <label>Id Umur</label>
-                    <input id="id_kategori_umur" class="form-control" type="text" name=""id_kategori_umur" placeholder="id" required autofocus>
+                    <input id="id_kategori_umur" class="form-control" type="text" name=""id_kategori_umurs" placeholder="id" required autofocus>
                 </div>
                 <div class="form-group">
                     <label>nama Kategori</label>

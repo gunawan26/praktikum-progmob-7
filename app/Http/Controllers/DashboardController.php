@@ -71,20 +71,21 @@ class DashboardController extends Controller
         return view('dashboard.addfilm', compact('bioskops'));
 	}
 	public function Createumur(){
-		$kategori_umur = kategori_umur::all();
-        return view('dashboard.addbioskop', compact('bioskops'));
+		$kategori_umurs = kategori_umur::all();
+        return view('dashboard.addumur', compact('kategori_umur'));
 	}
-	public function Addumur(){
+	public function Addumur(Request $req){
 		$data = [
-            'id_kategori_umur' => $req->id_kategori_umur,
-            'nama_kategori' => $req->nama_bioskop,
-            'min_umur' => $req->alamat,
+            'id_kategori_umurs' => $req->id_kategori_umurs,
+            'nama_kategori' => $req->nama_kategori,
+            'min_umur' => $req->min_umur,
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ];
-		bioskop::insert($data);
-		return redirect()->route('admin.dashboard.bioskop');
+		kategori_umur::insert($data);
+		return redirect()->route('admin.dashboard.filmhome');
 	}
+	
     public function AddKabupaten(Request $req){
 
     }
