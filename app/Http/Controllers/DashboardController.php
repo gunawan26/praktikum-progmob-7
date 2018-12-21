@@ -74,6 +74,24 @@ class DashboardController extends Controller
 		$kategori_umurs = kategori_umur::all();
         return view('dashboard.addumur', compact('kategori_umur'));
 	}
+	public function Createjadwal(){
+		$jadwal_films = jadwal_film::all();
+        return view('dashboard.addjadwal', compact('jadwal_films'));
+	}
+	public function Addjadwal(Request $req){
+		$data = [
+            'id_jadwal' => $req->id_kategori_umurs,
+            'id_film' => $req->nama_kategori,
+            'id_studio' => $req->min_umur,
+            'tanggal_tayang' => date("Y-m-d H:i:s"),
+			'jam_mulai' => date("H:i:s"),
+			'jam_selesai' => date("H:i:s"),
+			'created_at' => date("Y-m-d H:i:s"),
+            'updated_at' => date("Y-m-d H:i:s")
+        ];
+		kategori_umur::insert($data);
+		return redirect()->route('admin.dashboard.filmhome');
+	}
 	public function Addumur(Request $req){
 		$data = [
             'id_kategori_umurs' => $req->id_kategori_umurs,
