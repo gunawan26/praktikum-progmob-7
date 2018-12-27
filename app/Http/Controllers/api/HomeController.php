@@ -26,39 +26,32 @@ class HomeController extends Controller
     }
 
     public function filmSedangTayang(){
-        $id = $this->getCredentialId();
-        if($id == null){
-            $date_now=date('Y-m-d');
-            $sedang_tayang = DB::table('films')
-                        ->join('genre_films','films.id_genre','=','genre_films.id')
-                        ->join('kategori_umurs','films.id_kategori_umur','=','kategori_umurs.id')
-                        ->where('tgl_mulai','<=',$date_now)
-                        ->where('tanggal_selesai','>=',$date_now)
-                        ->select('films.id','nama_film','status_tayang','deskripsi','durasi','genre_films.nama_genre','kategori_umurs.nama_kategori','tgl_mulai','tanggal_selesai','foto_film')
-                        ->simplePaginate(5);
+
+        $date_now=date('Y-m-d');
+        $sedang_tayang = DB::table('films')->where('tgl_mulai','<=',$date_now)
+                                            ->where('tanggal_selesai','>=',$date_now)
+                                            ->simplePaginate(5);
 
 
-            return response()->json(
-                $sedang_tayang,200
-                // 'user'=>$cred
-            );
-        }else{
-            return response()->json(['msg'=>'fail'],400);
-        }
-
+        return response()->json([
+            'status'=> true,
+            'tanggal_sekarang'=> $date_now,
+            'val' => $sedang_tayang,
+            'user'=>$cred
+        ]);
     }
 
 
     public function filmAkanTayang(){
         $date_now=date('Y-m-d');
-        $akan_tayang = DB::table('films')
-                        ->join('genre_films','films.id_genre','=','genre_films.id')
-                        ->join('kategori_umurs','films.id_kategori_umur','=','kategori_umurs.id')
-                        ->where('tgl_mulai','>=',$date_now)
-                        ->select('films.id','nama_film','status_tayang','deskripsi','durasi','genre_films.nama_genre','kategori_umurs.nama_kategori','tgl_mulai','tanggal_selesai','foto_film')
-                        ->simplePaginate(5);
+        $akan_tayang = DB::table('films')->where('tgl_mulai','>=',$date_now)
+                                        ->simplePaginate(5);
 
-        return response()->json($akan_tayang,200);
+        return response()->json([
+            'status'=> true,
+            'tanggal_sekarang'=> $date_now,
+            'val' => $akan_tayang
+        ]);
     }
 
     public function addWishList(Request $request){
@@ -129,9 +122,8 @@ class HomeController extends Controller
     }
 
     protected function getCredentialId(){
-
         $cred = auth('api')->user()->id;
-
+        return $cred;
     }
 
 

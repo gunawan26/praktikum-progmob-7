@@ -7,28 +7,10 @@
     <link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <title>Paper Dashboard by Creative Tim</title>
+    <title>Adminstrator Ticket</title>
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
-	<style type="text/css">
-
-	      .seat {
-            height: 20px;
-            width: 20px;
-            border: 1px solid gray;
-           cursor:pointer;
-           background-color:white;
-        }
-        .walk{
-            padding-left:20px;
-        }
-        #driver {
-            background-color:gray;          
-            height: 20px;
-            border-radius: 50%;
-        }
-	</style>
 
 
     <!-- Bootstrap core CSS     -->
@@ -49,6 +31,7 @@
     <!--  CSS for Demo Purpose, don't include it in your project     -->
     {{--
     <link href="assets/css/demo.css" rel="stylesheet" /> --}}
+
 
     <!--  Fonts and icons     -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
@@ -79,31 +62,29 @@
 
                 <ul class="nav">
                     <li class="active">
-                        <a href="{{route("admin.dashboard")}}">
+                        <a href="dashboard.html">
                             <i class="ti-panel"></i>
                             <p>Dashboard</p>
                         </a>
                     </li>
                     <li>
-                        <a href="{{route("admin.dashboard.bioskophome")}}">
+                        <a href="{{URL('admin/dashboard/bioskop/index')}}">
                             <i class="ti-user"></i>
                             <p>Bioskop</p>
                         </a>
                     </li>
-					<li>
-                        <a href="{{route("admin.dashboard.filmhome")}}">
-                            <i class="ti-user"></i>
+                    <li>
+                        <a href="{{URL('admin/dashboard/jadwal_film/index')}}">
+                            <i class="ti-view-list-alt"></i>
                             <p>Film</p>
                         </a>
                     </li>
-                    <li>
-                        <a href="{{route('admin.dashboard.daerah')}}">
+					<li>
+                        <a href="{{URL('admin/dashboard/transaksi/index')}}">
                             <i class="ti-view-list-alt"></i>
-                            <p>Daerah</p>
+                            <p>Transaksi</p>
                         </a>
                     </li>
-
-
                 </ul>
             </div>
         </div>
@@ -196,7 +177,7 @@
 
         $.notify({
             icon: 'ti-gift',
-            message: "Welcome to <b>Paper Dashboard</b> - a beautiful Bootstrap freebie for your next project."
+            message: "Welcome To System Admin Ticket"
 
         }, {
             type: 'success',

@@ -20,7 +20,7 @@ Route::get('/', function () {
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-/////// Route Admin  //////
+/////// Route Admin //////
 
 
 Route::group(['prefix' => 'admin'], function () {
@@ -33,27 +33,26 @@ Route::group(['prefix' => 'admin'], function () {
     Route::group(['prefix' => 'dashboard'], function () {
         Route::group(['middleware' => ['auth:web_admins']], function () {
             Route::get('/','AdminController@HomeDashboard')->name('admin.dashboard');
+			
+			//Bioskop Only//
+			Route::resource('bioskop', 'BioskopController');
+			Route::resource('studio', 'StudioController');
+			Route::resource('kursilist','KursiListController');
+			Route::resource('kursi','KursiController');
+			Route::resource('daerah', 'DaerahController');
+			
+			//Film Only//
+			Route::resource('jadwal_film', 'JadwalController');
+			Route::resource('genre','GenreController');
+			Route::resource('umur','UmurController');
+			Route::resource('film','FilmController');
+			
+			
+			//Transaksi Only//
+			Route::resource('transaksi', 'TransaksiController');
+			
+			//Film Only//
             Route::get('/daerah','DashboardController@Daerah')->name('admin.dashboard.daerah');
-            Route::get('/bioskophome','DashboardController@Bioskophome')->name('admin.dashboard.bioskophome');
-			
-			Route::get('/Filmhome','DashboardController@Filmhome')->name('admin.dashboard.filmhome');
-			Route::get('/addjadwal','DashboardController@Createjadwal')->name('admin.dashboard.filmhome.createjadwal');
-			Route::get('/addumur','DashboardController@Createumur')->name('admin.dashboard.filmhome.createumur');
-		    Route::get('/addfilm','DashboardController@Createfilm')->name('admin.dashboard.bioskop.createfilm');
-			
-			Route::get('/bioskop','DashboardController@Bioskop')->name('admin.dashboard.bioskop');
-			Route::get('/seatplan','DashboardController@Seatplan')->name('admin.dashboard.seatplan');
-			Route::get('/addbioskop','DashboardController@Createbioskop')->name('admin.dashboard.bioskop.createbioskop');
-
-			Route::get('/editbioskop/{$bioskops->id}','DashboardController@Editbioskop')->name('admin.dashboard.bioskop.editbioskop');
-			Route::get('/bioskop/{$bioskops->id}','DashboardController@Destroybioskop')->name('admin.dashboard.bioskop.destroybioskop');
-			
-			//// Bioskop Post //
-			Route::post('/editbioskop','DashboardController@Updatebioskop')->name('admin.dashboard.bioskop.updatebioskop');
-			Route::post('/addbioskop','DashboardController@Addbioskop')->name('admin.dashboard.bioskop.addbioskop');
-			
-			Route::post('/addjadwal','DashboardController@Addjadwal')->name('admin.dashboard.filmhome.addjadwal');
-			Route::post('/addumur','DashboardController@Addumur')->name('admin.dashboard.filmhome.addumur');
             Route::post('/tambah/provinsi','DashboardController@AddProvinsi')->name('admin.dashboard.daerah.provinsi');
             Route::post('/tambah/kabupaten','DashboardController@AddKabupaten')->name('admin.dashboard.daerah.kabupaten');
         });
